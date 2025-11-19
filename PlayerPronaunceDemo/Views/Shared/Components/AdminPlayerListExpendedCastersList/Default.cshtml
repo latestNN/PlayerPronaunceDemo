@@ -1,0 +1,37 @@
+﻿
+@model List<PlayerPronaunceDemo.Entities.Sound>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<div class="detail-casters">
+    <span class="caster-label">Casters</span>
+    @foreach (var item in Model)
+    {
+        <span class="caster-name sound-box" style="cursor: pointer">@item.CasterName
+            <audio style="display: none;">
+                <source src="~/Sounds/erman.mp3" type="audio/mpeg">
+            </audio>
+        </span>
+        
+    }
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const kutular = document.querySelectorAll('.sound-box');
+
+            kutular.forEach(function(kutu) {
+                const ses = kutu.querySelector('audio');
+
+                kutu.addEventListener('click', function() {
+                    ses.play().catch(function(error) {
+                        console.error('Ses oynatma hatası:', error);
+                    });
+                });
+            });
+        });
+    </script>
+
+</div>

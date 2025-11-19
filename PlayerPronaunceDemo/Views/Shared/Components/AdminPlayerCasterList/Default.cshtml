@@ -1,0 +1,40 @@
+﻿@model List<PlayerPronaunceDemo.Entities.Sound> 
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<table class="detail-table">
+    <H2>Sound Info</H2>
+    <thead>
+        <tr>
+            <th>File Path</th>
+            <th>Nation</th>
+            <th>Caster Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>~/Sounds/@item.SoundPath</td>
+                <td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 @item.SoundNation</td>
+                <td>
+                    <div class="caster-image-cell">
+                        <img src="@item.CasterImageUrl" alt="Martin Tyler" class="caster-image">
+                        <span>@item.CasterName</span>
+                    </div>
+                </td>
+                <td>
+                    <a href="" class="btn btn-edit">Edit</a>
+                </td>
+                <td>
+                    <a href="" class="btn btn-delete">Delete</a>
+                </td>
+            </tr>
+        }
+        
+        
+    </tbody>
+</table>

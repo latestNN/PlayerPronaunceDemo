@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Football Players</title>
+    <link rel="stylesheet" href="~/css/AdminPanel/AdminPageStyle.css"></link>
+
+</head>
+<body>
+    <!-- ========================================
+         MAIN CONTAINER 
+    ======================================== -->
+    <div class="container">
+        <!-- ========================================
+             SIDEBAR NAVIGATION
+        ======================================== -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>LOGO</h2>
+            </div>
+
+            <ul class="nav-menu">
+                <!-- Dashboard Button - Large Featured Button -->
+                <li class="dashboard-item">
+                    <a href="#dashboard" class="dashboard-link">Dashboard</a>
+                </li>
+
+                <!-- Profile as Nav Item -->
+                <li class="profile-nav-item">
+                    <a href="#profile" class="profile-link">
+                        <div class="profile-mini-avatar">AD</div>
+                        <div class="profile-text-info">
+                            <div class="profile-text-name">Admin User</div>
+                            <div class="profile-text-role">Administrator</div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/Admin/FootballTeamsList" class="nav-link">Football Teams</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/Admin/FootballPlayersList" class="nav-link active">Football Players</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#sports" class="nav-link">Sports Pages</a>
+                </li>
+            </ul>
+
+            <!-- Admin Panel Info at Bottom -->
+            <div class="sidebar-bottom">
+                <div class="admin-panel-info">
+                    <h3>Admin Panel</h3>
+                    <p>v1.0.0 © 2025</p>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ========================================
+             MAIN CONTENT AREA
+        ======================================== -->
+        @RenderBody()
+    </div>
+
+</body>
+</html>

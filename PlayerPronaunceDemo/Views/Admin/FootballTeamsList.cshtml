@@ -1,0 +1,145 @@
+﻿@model List<PlayerPronaunceDemo.Entities.FootballTeam>
+
+
+
+@{
+    ViewData["Title"] = "FootballTeamsList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<main class="main-content">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Football Players</h1>
+        <p>Manage your football teams database</p>
+    </div>
+
+    <!-- ========================================
+    TABLE SECTION
+    ======================================== -->
+    <div class="table-container">
+        <!-- Filter Section Inside Table Container -->
+        <div class="filter-section">
+            <div class="filter-group">
+                <label class="filter-label">Search</label>
+                <input type="text" class="search-input" placeholder="Search players...">
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Filter</label>
+                <select class="filter-dropdown">
+                    <option value="">All Players</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="injured">Injured</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <table>
+            <!-- Table Header -->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Team</th>
+                    <th>Nation</th>
+                    <th>Player Count</th>                       
+                    <th>Edit</th>                       
+                    <th>Delete</th>                       
+                </tr>
+            </thead>
+            <!-- Table Body -->
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="expandable-row" onclick="toggleRow(this)">
+                        <td><span class="expand-icon">▶</span>@item.FootballTeamId</td>
+                        <td>
+                            <div class="player-cell">
+                                <img src="@item.ImageUrl" alt="Player" class="player-photo">
+                                <span class="player-name">@item.Name</span>
+
+
+                            </div>
+                        </td>
+                        <td>@item.Origin</td>
+                        <td></td>
+                        <td class="actions">
+                            <a href="#edit-1" class="btn btn-edit">Edit</a>
+                        </td>
+                        <td class="actions">
+                            <a href="#delete-1" class="btn btn-delete">Delete</a>
+                        </td>
+                    </tr>
+            
+                    <tr class="detail-row">
+                        <td colspan="5" class="detail-cell">
+                            <div class="detail-content">
+                                <img src="@item.ImageUrl" alt="@item.Name" class="detail-player-image">
+                                <div class="detail-info-section">
+                                    <div class="detail-player-header">
+                                        <div class="detail-info-section">
+                                            <div class="detail-player-header">
+                                                <div class="detail-player-name">
+                                                    @item.Name
+                                                    <span class="detail-player-id">ID: @item.FootballTeamId</span>
+                                                </div>
+                                                <div class="detail-grid">
+                                                    <div class="detail-item">
+                                                        <span class="detail-label" style="color: #3498db;">Nation</span>
+                                                        <div class="caster-image-cell">
+                                                            <img src="@item.ImageUrl" alt="Martin Tyler" class="caster-image" style="">
+                                                            <span class="detail-value highlight">@item.Origin</span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="detail-item">
+                                                        <span class="detail-label" style="color: #3498db;">Leauge</span>
+                                                        <div class="caster-image-cell">
+                                                            <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg" alt="Martin Tyler" class="caster-image" style="">
+                                                            <span class="detail-value highlight">Premier Leaugue</span>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            @await Component.InvokeAsync("AdminFootballTeamsPanelsPlayers", new { id = item.FootballTeamId })
+                                            <div class="detail-actions">
+                                                <a href="#edit-1" class="btn btn-edit">Edit Player</a>
+                                                <a href="#delete-1" class="btn btn-delete" style="background-color: #27ae60">Add Sound</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr> 
+                }
+
+
+            </tbody>
+        </table>
+        <!-- Add Button Section -->
+        <div class="add-button-container">
+            <a href="#add" class="btn btn-add">Add New Player</a>
+        </div>
+    </div>
+</main>
+
+
+<script>
+    function toggleRow(row) {
+        // Get the detail row (next sibling)
+        const detailRow = row.nextElementSibling;
+
+        // Toggle expanded class on main row
+        row.classList.toggle('expanded');
+
+        // Toggle show class on detail row
+        detailRow.classList.toggle('show');
+    }
+</script>
+

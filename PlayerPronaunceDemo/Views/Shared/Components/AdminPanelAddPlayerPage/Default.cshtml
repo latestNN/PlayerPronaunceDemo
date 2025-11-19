@@ -1,0 +1,91 @@
+﻿@model PlayerPronaunceDemo.Entities.FootbalPlayer
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="form-container">
+    @using (Html.BeginForm("AddPlayer", "Admin", FormMethod.Post, new { id = "addPlayerForm" }))
+    {
+        <!-- Player Name -->
+        <div class="form-group">
+            <label class="form-label">
+                Player Name<span class="required">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-input", id = "playerName" })
+        </div>
+
+        <!-- Image URL -->
+        <div class="form-group">
+            <label class="form-label">
+                Player Image URL<span class="required">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.ImageUrl, new { @class = "form-input", id = "imageUrl" })
+            <span class="form-hint">Provide a direct link to the player's photo</span>
+        </div>
+
+        <!-- Country & Team Row -->
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">
+                    Player Country<span class="required">*</span>
+                </label>
+                <select asp-for="Nation" asp-items="@ViewBag.countries" class="form-select">
+                    <option value="">-- Ülke Seçin --</option>
+                </select>
+                @* <select class="form-select" id="nation" required>
+                    <option value="">Select Country</option>
+                    <option value="england">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</option>
+                    <option value="spain">🇪🇸 Spain</option>
+                    <option value="france">🇫🇷 France</option>
+                    <option value="germany">🇩🇪 Germany</option>
+                    <option value="italy">🇮🇹 Italy</option>
+                    <option value="portugal">🇵🇹 Portugal</option>
+                    <option value="brazil">🇧🇷 Brazil</option>
+                    <option value="argentina">🇦🇷 Argentina</option>
+                    <option value="netherlands">🇳🇱 Netherlands</option>
+                    <option value="belgium">🇧🇪 Belgium</option>
+                    <option value="usa">🇺🇸 USA</option>
+                    <option value="mexico">🇲🇽 Mexico</option>
+                </select> *@
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Player Team<span class="required">*</span>
+                </label>
+                <select asp-for="FootballTeamId" asp-items="@ViewBag.teams" class="form-select">
+                    <option value="">-- Takim Secin --</option>
+                </select>
+                
+            </div>
+        </div>
+
+        <!-- Nation Flag URL -->
+        <div class="form-group">
+            <label class="form-label">
+                Nation Flag URL<span class="required">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.NationFlagImageUrl, new { @class = "form-input", id = "imageUrl" })
+            <span class="form-hint">Provide a direct link to the nation's flag image</span>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section" id="previewSection" style="display: none;">
+            <div class="preview-title">Preview</div>
+            <div class="preview-content">
+                <img src="https://i.pravatar.cc/150?img=1" alt="Preview" class="preview-image" id="previewImage">
+                <div class="preview-info">
+                    <div class="preview-name" id="previewName">Player Name</div>
+                    <div class="preview-details" id="previewDetails">Country • Team</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">💾 Save Player</button>
+            <a href="#players" class="btn btn-cancel">Cancel</a>
+        </div>
+
+    }
+</div>
