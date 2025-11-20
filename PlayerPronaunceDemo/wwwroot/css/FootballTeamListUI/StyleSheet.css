@@ -1,0 +1,168 @@
+﻿
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    /* REFERANS ALINAN ARKAPLAN */
+    background: radial-gradient(circle at top right, #2e1065, #0f172a);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #fff;
+}
+
+.league-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- HEADER ALANI --- */
+.league-header {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.league-title {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+    /* REFERANS ALINAN GRADIENT YAZI EFEKTİ */
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.league-subtitle {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* --- GRID YAPISI --- */
+.teams-grid {
+    display: grid;
+    /* Responsive Grid: Ekran küçüldükçe otomatik ayarlanır */
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+/* --- TAKIM KARTI TASARIMI (GLASS PATTERN) --- */
+.team-card {
+    /* REFERANS ALINAN GLASS EFEKTİ */
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+}
+
+    /* Kart Hover Efekti */
+    .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+/* Logo Alanı */
+.card-image-area {
+    width: 100%;
+    height: 180px;
+    /* Logonun arkasına hafif bir gradient */
+    background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(0,0,0,0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.team-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
+    transition: transform 0.4s ease;
+}
+
+.team-card:hover .team-logo {
+    transform: scale(1.1);
+}
+
+/* İçerik Alanı */
+.card-content {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.team-info {
+    margin-bottom: 20px;
+}
+
+.team-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.team-origin {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Buton / Link Alanı */
+.card-action {
+    margin-top: auto;
+}
+
+.details-link {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #60a5fa; /* Mavi tonu */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease, gap 0.3s ease;
+}
+
+    .details-link:hover {
+        color: #93c5fd;
+        gap: 10px; /* Ok işaretini sağa kaydır */
+    }
+
+/* RESPONSIVE AYARLAR */
+@media (max-width: 768px) {
+    .league-title {
+        font-size: 2.2rem;
+    }
+
+    .teams-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+

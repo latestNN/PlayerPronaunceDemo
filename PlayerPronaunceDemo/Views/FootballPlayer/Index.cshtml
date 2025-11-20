@@ -1,351 +1,121 @@
 ﻿@model List<PlayerPronaunceDemo.Entities.Sound>
 
+
 @{
     Layout = null;
-    string border;
 }
-
-
+<!DOCTYPE html>
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Person Container & Scroll Buttons</title>
-    <style>
-        * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        }
+    <title>Oyuncu Profili - Dark Mode</title>
+    <link href="~/css/MainUI/StyleSheet.css" rel="stylesheet" />
 
-        body {
-        font-family: Arial, sans-serif;
-        background-color: #f5f5f5;
-        padding: 40px 20px;
-        }
-
-        /* Main wrapper for both containers */
-        .main-wrapper {
-        max-width: 900px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        }
-
-        /* PERSON CONTAINER STYLES */
-        .person-container {
-        width: 100%;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        }
-
-        .person-content-wrapper {
-        display: flex;
-        min-height: 500px;
-        }
-
-        .person-left-section {
-        flex: 1;
-        padding: 0;
-        background-color: #fafafa;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-right: 2px solid #e0e0e0;
-        overflow: hidden;
-        }
-
-        .person-right-section {
-        flex: 1;
-        padding: 40px;
-        display: flex;
-        flex-direction: column;
-        }
-
-        .person-main-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 0;
-        border: none;
-        }
-
-        .person-name-title {
-        font-size: 2.5em;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 40px;
-        text-align: center;
-        }
-
-        .person-info-section {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        margin-top: auto;
-        margin-bottom: auto;
-        }
-
-        .person-info-item {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        }
-
-        .person-info-label {
-        font-weight: bold;
-        font-size: 1.2em;
-        color: #333;
-        min-width: 80px;
-        }
-
-        .person-info-content {
-        font-size: 1.1em;
-        color: #666;
-        }
-
-        .person-logo-container {
-        display: flex;
-        align-items: center;
-        }
-
-        .person-logo-image {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 8px;
-        }
-
-        /* SCROLL CONTAINER STYLES */
-        .scroll-container {
-        width: 100%;
-        max-height: 500px;
-        overflow-y: auto;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        padding: 20px;
-        background: none;
-        justify-content: center;
-        }
-
-        .scroll-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        width: 220px;
-        gap: 10px;
-        }
-
-        .scroll-img-button {
-        width: 220px;
-        aspect-ratio: 16 / 9;
-        border: 0;
-        background: none;
-        padding: 0;
-        position: relative;
-        cursor: pointer;
-        border-radius: 16px;
-        overflow: hidden;
-        outline: none;
-        transform: translateZ(0);
-        transition: transform 220ms ease, box-shadow 220ms ease;
-        }
-
-        .scroll-img-button::before,
-        .scroll-img-button::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        display: block;
-        }
-
-        .scroll-img-button::before {
-        background-image: var(--img);
-        }
-
-        .scroll-img-button::after {
-        background-image: var(--img-hover);
-        opacity: 0;
-        transition: opacity 220ms ease;
-        }
-
-        .scroll-img-button:hover,
-        .scroll-img-button:focus-visible {
-        transform: scale(1.04);
-        box-shadow: 0 10px 24px rgba(0,0,0,.22);
-        }
-
-        .scroll-img-button:hover::after,
-        .scroll-img-button:focus-visible::after {
-        opacity: 1;
-        }
-
-        .scroll-img-button:focus-visible {
-        outline: 2px solid transparent;
-        box-shadow: 0 0 0 3px rgba(59,130,246,.45), 0 12px 28px rgba(0,0,0,.25);
-        }
-
-        .scroll-card p {
-        font-size: 1rem;
-        color: #333;
-        margin: 0;
-        }
-
-        /* Responsive tasarım */
-        @@media (max-width: 768px) {
-        .main-wrapper
-
-        {
-        gap: 20px;
-        }
-
-        .person-content-wrapper {
-        flex-direction: column;
-        }
-
-        .person-left-section {
-        border-right: none;
-        border-bottom: 2px solid #e0e0e0;
-        padding: 20px;
-        }
-
-        .person-main-image {
-        border-radius: 8px;
-        }
-
-        .scroll-container {
-        padding: 15px;
-        gap: 15px;
-        }
-
-        .scroll-card {
-        width: 180px;
-        }
-
-        .scroll-img-button {
-        width: 180px;
-        }
-
-        }
-
-        @@media (prefers-reduced-motion: reduce) {
-        .scroll-img-button, .scroll-img-button::after
-
-        {
-        transition: none !important;
-        }
-
-        }
-
-        #sesKutusu {
-        width: 200px;
-        height: 100px;
-        background-color: #007bff;
-        color: white;
-        border: 2px solid #0056b3;
-        border-radius: 8px;
-        /* İçeriği ortalamak için */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        /* Tıklanabilir olduğunu göstermek için imleci el yapıyoruz */
-        cursor: pointer;
-        /* Metin seçilmesini engellemek için */
-        user-select: none;
-        transition: background-color 0.2s;
-        }
-
-        /* 2. Kutunun üzerine gelince rengi değişsin */
-        #sesKutusu:hover {
-        background-color: #0056b3;
-        }
-    </style>
 </head>
 <body>
     <div class="main-wrapper">
-        <!-- PERSON CONTAINER -->
-        <div class="person-container">
-            <div class="person-content-wrapper">
-                <div class="person-left-section">
-                    <img src="@ViewBag.playerImage" alt="Person Image" class="person-main-image">
-                </div>
 
-                <div class="person-right-section">
-                    <h1 class="person-name-title">@ViewBag.playerName</h1>
+        <aside class="person-container">
+            <img src="@ViewBag.playerImage" alt="Oyuncu Resmi" class="person-header-image">
 
-                    <div class="person-info-section">
-                        <div class="person-info-item">
-                            <div class="person-info-label">Uyruk:</div>
-                            <div class="person-info-content">@ViewBag.playerNation</div>
-                        </div>
+            <div class="person-details">
+                <h1 class="person-name-title">@ViewBag.playerName</h1>
+                <p class="person-subtitle">Profesyonel Oyuncu</p>
 
-                        <div class="person-info-item">
-                            <div class="person-info-label">Logo:</div>
-                            <div class="person-logo-container">
-                                <img src="LOGO_URL_BURAYA" alt="Person Logo" class="person-logo-image">
-                            </div>
+                <div class="person-info-grid">
+                    <div class="info-row">
+                        <span class="info-label">Uyruk:</span>
+                        <span class="info-value">
+                            <img src="@ViewBag.playerNationFlag" alt="TR" style="width: 20px; vertical-align: middle;"> @ViewBag.playerNation
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Takım:</span>
+                        <span class="info-value">@ViewBag.playerTeam</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Logo:</span>
+                        <div class="info-value">
+                            <img src="@ViewBag.playerTeamImage" alt="Logo" class="person-logo-image">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </aside>
 
-        <!-- SCROLL CONTAINER -->
-        <div class="scroll-container">
+        <main class="buttons-area">
+            <h2 class="section-title">Sunucular</h2>
+
+            <div class="button-grid">
 
 
-            @foreach(var item in Model)
-            {
-                @if (item.IsEpic)
+                @foreach(var item in Model)
                 {
-                    <div class="scroll-card sound-box">
-                        <button style="border: 2px solid #0056b3;" class="scroll-img-button" style="--img: url('@item.CasterNationImageUrl'); --img-hover: url('@item.CasterImageUrl');"></button>
-                        <p>@item.CasterName - @item.SoundNation</p>
-                        <audio style="display: none;">
-                            <source src="~/Sounds/erman.mp3" type="audio/mpeg">
-                        </audio>
-                    </div>                
-                }                
-                else
+                    @if(item.IsEpic)
+                    {
+                        <div class="scroll-card">
+                            <div class="epic-btn-wrapper">
+                                <button class="scroll-img-button"
+                                onclick="openVideoModal('https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1')"
+                                style="--img: url('@item.CasterNationImageUrl'); --img-hover: url('@item.CasterImageUrl');">
+                                </button>
+                            </div>
+                            <p class="card-label" style="color: rgba(6, 182, 212, 0.9); font-weight: bold;">★ @item.CasterName ★</p>
+                        </div>
+                    }
 
-                {
-                    <div class="scroll-card sound-box">
-                        <button  class="scroll-img-button" style="--img: url('@item.CasterNationImageUrl'); --img-hover: url('@item.CasterImageUrl');"></button>
-                        <p>@item.CasterName - @item.SoundNation</p>
-                        <audio style="display: none;">
-                            <source src="~/Sounds/erman.mp3" type="audio/mpeg">
-                        </audio>
-                    </div>
-                }
-                
+                    else
+                    {
+                        <div class="scroll-card">
+                            <button class="scroll-img-button" style="--img: url('@item.CasterNationImageUrl'); --img-hover: url('@item.CasterImageUrl');"></button>
+                            <p class="card-label">@item.CasterName</p>
+                        </div>
+                    }
                     
-            }
+                }
+
+                
+
+
+
+
+            </div>
+            <div class="video-modal-overlay" id="videoModal" onclick="closeVideoModal()">
+                <div class="video-modal-content" onclick="event.stopPropagation()">
+                    <button class="close-modal-btn" onclick="closeVideoModal()">&times;</button>
+                    <iframe class="video-frame" id="modalIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+            </div>
 
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const kutular = document.querySelectorAll('.sound-box');
+                const modal = document.getElementById('videoModal');
+                const iframe = document.getElementById('modalIframe');
 
-                    kutular.forEach(function(kutu) {
-                        const ses = kutu.querySelector('audio');
+                function openVideoModal(videoUrl) {
+                    // Modalı aktif et
+                    modal.classList.add('active');
+                    // Videoyu yükle
+                    iframe.src = videoUrl;
+                }
 
-                        kutu.addEventListener('click', function() {
-                            ses.play().catch(function(error) {
-                                console.error('Ses oynatma hatası:', error);
-                            });
-                        });
-                    });
+                function closeVideoModal() {
+                    // Modalı gizle
+                    modal.classList.remove('active');
+                    // Videoyu durdurmak için src'yi boşalt
+                    setTimeout(() => {
+                        iframe.src = '';
+                    }, 300); // Animasyon bitince sil
+                }
+
+                // ESC tuşuna basınca kapatma
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === "Escape") {
+                        closeVideoModal();
+                    }
                 });
             </script>
-            
-
-
-        </div>
+        </main>
     </div>
 </body>
+</html>

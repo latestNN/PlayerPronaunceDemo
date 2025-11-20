@@ -52,6 +52,19 @@ namespace PlayerPronaunceDemo.Controllers
             _context.SaveChanges();
             return RedirectToAction("FootballPlayersList");
         }
+
+        [HttpGet]
+        public IActionResult AddTeam()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddTeam(FootballTeam team)
+        {
+            _context.FootballTeams.Add(team);
+            _context.SaveChanges();
+            return RedirectToAction("FootballTeamsList");
+        }
         public IActionResult SportsCategoriesList()
         {
             return View();
