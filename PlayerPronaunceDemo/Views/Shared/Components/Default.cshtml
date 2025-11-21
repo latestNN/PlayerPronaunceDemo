@@ -1,0 +1,134 @@
+﻿@model PlayerPronaunceDemo.Entities.FootbalPlayer
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="form-container">
+    @using (Html.BeginForm("AddPlayer", "Admin", FormMethod.Post, new { id = "addPlayerForm" }))
+    {
+        <!-- Player Name -->
+        <div class="form-group">
+            <label class="form-label">
+                Player Name<span class="required">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-input", id = "playerName" })
+        </div>
+
+        <!-- Image URL -->
+        <div class="form-group">
+            <label class="form-label">
+                Player Image URL<span class="required">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.ImageUrl, new { @class = "form-input", id = "imageUrl" })
+            <span class="form-hint">Provide a direct link to the player's photo</span>
+        </div>
+
+        <!-- Country & Team Row -->
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">
+                    Player Country<span class="required">*</span>
+                </label>
+
+                <div id="selectModeContainer" style="display: flex; gap: 5px;">
+                    <select asp-for="Nation" asp-items="@ViewBag.countries" class="form-select" id="countryDropdown">
+                        <option value="">-- Ülke Seçin --</option>
+                    </select>
+                    <button type="button" id="btnSwitchToText" style="padding: 0 15px; cursor: pointer;">+</button>
+                </div>
+
+                <div id="textModeContainer" style="display: none; gap: 5px;">
+
+                    <input asp-for="Nation" type="text" class="form-input" id="countryTextBox" placeholder="Yeni ülke adı giriniz..." disabled />
+
+                    <button type="button" id="btnSwitchToSelect" style="padding: 0 15px; cursor: pointer; background-color: #ff4444; color: white; border: none;">✖</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Player Team<span class="required">*</span>
+                </label>
+                <select asp-for="FootballTeamId" asp-items="@ViewBag.teams" class="form-select">
+                    <option value="">-- Takim Secin --</option>
+                </select>
+
+            </div>
+        </div>
+
+
+
+        <!-- Nation Flag URL -->
+        <div class="form-group">
+            <label class="form-label">
+                Nation Flag URL<span class="required">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.NationFlagImageUrl, new { @class = "form-input", id = "imageUrl" })
+            <span class="form-hint">Provide a direct link to the nation's flag image</span>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section" id="previewSection" style="display: none;">
+            <div class="preview-title">Preview</div>
+            <div class="preview-content">
+                <img src="https://i.pravatar.cc/150?img=1" alt="Preview" class="preview-image" id="previewImage">
+                <div class="preview-info">
+                    <div class="preview-name" id="previewName">Player Name</div>
+                    <div class="preview-details" id="previewDetails">Country • Team</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">💾 Save Player</button>
+            <a href="#players" class="btn btn-cancel">Cancel</a>
+        </div>
+
+    }
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const btnToText = document.getElementById("btnSwitchToText");
+        const btnToSelect = document.getElementById("btnSwitchToSelect");
+
+        const selectContainer = document.getElementById("selectModeContainer");
+        const textContainer = document.getElementById("textModeContainer");
+
+        const dropdown = document.getElementById("countryDropdown");
+        const textBox = document.getElementById("countryTextBox");
+
+        // "+" Butonuna basılınca
+        btnToText.addEventListener("click", function () {
+            // Görünümü değiştir
+            selectContainer.style.display = "none";
+            textContainer.style.display = "flex";
+
+            // Dropdown'ı devre dışı bırak (Veri göndermesin)
+            dropdown.disabled = true;
+            dropdown.removeAttribute("name"); // MVC binding hatasını önlemek için name'i siliyoruz
+
+            // Textbox'ı aktif et ve 'Nation' ismini ver
+            textBox.disabled = false;
+            textBox.setAttribute("name", "Nation"); // Modeldeki 'Nation' alanına bu veri gidecek
+            textBox.focus();
+        });
+
+        // "X" Butonuna basılınca (Geri dön)
+        btnToSelect.addEventListener("click", function () {
+            // Görünümü eski haline getir
+            textContainer.style.display = "none";
+            selectContainer.style.display = "flex";
+
+            // Textbox'ı devre dışı bırak
+            textBox.disabled = true;
+            textBox.removeAttribute("name");
+            textBox.value = ""; // Yazılanı temizle
+
+            // Dropdown'ı tekrar aktif et
+            dropdown.disabled = false;
+            dropdown.setAttribute("name", "Nation"); // Tekrar Nation ismini aldı
+        });
+    });
+</script>

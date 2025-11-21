@@ -1,0 +1,88 @@
+﻿@model PlayerPronaunceDemo.Entities.FootbalPlayer
+@{
+    ViewData["Title"] = "EditPlayer";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<main class="main-content">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Edit Player</h1>
+        <p>Fill in the player information below</p>
+    </div>
+
+    <!-- ========================================
+    FORM SECTION
+    ======================================== -->
+    @await Component.InvokeAsync("AdminEditPlayer")
+
+</main>
+
+
+
+<script>
+    // Form elements
+    const form = document.getElementById('addPlayerForm');
+    const playerNameInput = document.getElementById('playerName');
+    const imageUrlInput = document.getElementById('imageUrl');
+    const playerCountrySelect = document.getElementById('playerCountry');
+    const playerTeamSelect = document.getElementById('playerTeam');
+    const previewSection = document.getElementById('previewSection');
+    const previewImage = document.getElementById('previewImage');
+    const previewName = document.getElementById('previewName');
+    const previewDetails = document.getElementById('previewDetails');
+
+    // Update preview when fields change
+    function updatePreview() {
+        const name = playerNameInput.value;
+        const imageUrl = imageUrlInput.value;
+        const country = playerCountrySelect.options[playerCountrySelect.selectedIndex].text;
+        const team = playerTeamSelect.options[playerTeamSelect.selectedIndex].text;
+
+        if (name || imageUrl || playerCountrySelect.value || playerTeamSelect.value) {
+            previewSection.style.display = 'block';
+
+            if (name) previewName.textContent = name;
+            if (imageUrl) previewImage.src = imageUrl;
+
+            if (playerCountrySelect.value && playerTeamSelect.value) {
+                previewDetails.textContent = `${country} • ${team}`;
+            } else if (playerCountrySelect.value) {
+                previewDetails.textContent = country;
+            } else if (playerTeamSelect.value) {
+                previewDetails.textContent = team;
+            }
+        } else {
+            previewSection.style.display = 'none';
+        }
+    }
+
+    // Add event listeners
+    playerNameInput.addEventListener('input', updatePreview);
+    imageUrlInput.addEventListener('input', updatePreview);
+    playerCountrySelect.addEventListener('change', updatePreview);
+    playerTeamSelect.addEventListener('change', updatePreview);
+
+    // Handle form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = {
+            name: playerNameInput.value,
+            imageUrl: imageUrlInput.value,
+            country: playerCountrySelect.value,
+            team: playerTeamSelect.value,
+            flagUrl: document.getElementById('flagUrl').value
+        };
+
+        console.log('Player data to save:', formData);
+
+        // Show success message
+        alert('Player saved successfully!');
+
+        // Reset form
+        form.reset();
+        previewSection.style.display = 'none';
+    });
+</script>
+

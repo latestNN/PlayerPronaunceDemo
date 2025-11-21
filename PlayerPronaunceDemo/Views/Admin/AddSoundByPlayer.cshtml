@@ -1,0 +1,134 @@
+﻿@model PlayerPronaunceDemo.Entities.Sound
+
+@{
+    ViewData["Title"] = "AddSoundByPlayer";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+<main class="main-content">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Add Sound</h1>
+        <p>Fill in the player information below</p>
+    </div>
+
+    <!-- ========================================
+    FORM SECTION
+    ======================================== -->
+    <div class="form-container">
+        @await Component.InvokeAsync("AdminAddSound", new {playerId = ViewBag.playerId, playerName= ViewBag.playerName});
+    </div>
+
+    
+</main>
+
+
+
+<script>
+    // Form elements
+    const form = document.getElementById('addPlayerForm');
+    const playerNameInput = document.getElementById('playerName');
+    const imageUrlInput = document.getElementById('imageUrl');
+    const playerCountrySelect = document.getElementById('playerCountry');
+    const playerTeamSelect = document.getElementById('playerTeam');
+    const previewSection = document.getElementById('previewSection');
+    const previewImage = document.getElementById('previewImage');
+    const previewName = document.getElementById('previewName');
+    const previewDetails = document.getElementById('previewDetails');
+
+    document.addEventListener("DOMContentLoaded", function () {
+            const btnToText = document.getElementById("btnSwitchToText");
+            const btnToSelect = document.getElementById("btnSwitchToSelect");
+
+            const selectContainer = document.getElementById("selectModeContainer");
+            const textContainer = document.getElementById("textModeContainer");
+
+            const dropdown = document.getElementById("countryDropdown");
+            const textBox = document.getElementById("countryTextBox");
+
+            // "+" Butonuna basılınca
+            btnToText.addEventListener("click", function () {
+                // Görünümü değiştir
+                selectContainer.style.display = "none";
+                textContainer.style.display = "flex";
+
+                // Dropdown'ı devre dışı bırak (Veri göndermesin)
+                dropdown.disabled = true;
+                dropdown.removeAttribute("name"); // MVC binding hatasını önlemek için name'i siliyoruz
+
+                // Textbox'ı aktif et ve 'Nation' ismini ver
+                textBox.disabled = false;
+                textBox.setAttribute("name", "Nation"); // Modeldeki 'Nation' alanına bu veri gidecek
+                textBox.focus();
+            });
+
+             // "X" Butonuna basılınca (Geri dön)
+            btnToSelect.addEventListener("click", function () {
+                // Görünümü eski haline getir
+                textContainer.style.display = "none";
+                selectContainer.style.display = "flex";
+
+                // Textbox'ı devre dışı bırak
+                textBox.disabled = true;
+                textBox.removeAttribute("name");
+                textBox.value = ""; // Yazılanı temizle
+
+                // Dropdown'ı tekrar aktif et
+                dropdown.disabled = false;
+                dropdown.setAttribute("name", "Nation"); // Tekrar Nation ismini aldı
+            });
+
+    // Update preview when fields change
+    function updatePreview() {
+        const name = playerNameInput.value;
+        const imageUrl = imageUrlInput.value;
+        const country = playerCountrySelect.options[playerCountrySelect.selectedIndex].text;
+        const team = playerTeamSelect.options[playerTeamSelect.selectedIndex].text;
+
+        if (name || imageUrl || playerCountrySelect.value || playerTeamSelect.value) {
+            previewSection.style.display = 'block';
+
+            if (name) previewName.textContent = name;
+            if (imageUrl) previewImage.src = imageUrl;
+
+            if (playerCountrySelect.value && playerTeamSelect.value) {
+                previewDetails.textContent = `${country} • ${team}`;
+            } else if (playerCountrySelect.value) {
+                previewDetails.textContent = country;
+            } else if (playerTeamSelect.value) {
+                previewDetails.textContent = team;
+            }
+        } else {
+            previewSection.style.display = 'none';
+        }
+    }
+
+    // Add event listeners
+    playerNameInput.addEventListener('input', updatePreview);
+    imageUrlInput.addEventListener('input', updatePreview);
+    playerCountrySelect.addEventListener('change', updatePreview);
+    playerTeamSelect.addEventListener('change', updatePreview);
+
+    // Handle form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = {
+            name: playerNameInput.value,
+            imageUrl: imageUrlInput.value,
+            country: playerCountrySelect.value,
+            team: playerTeamSelect.value,
+            flagUrl: document.getElementById('flagUrl').value
+        };
+
+        console.log('Player data to save:', formData);
+
+        // Show success message
+        alert('Player saved successfully!');
+
+        // Reset form
+        form.reset();
+        previewSection.style.display = 'none';
+    });
+</script>

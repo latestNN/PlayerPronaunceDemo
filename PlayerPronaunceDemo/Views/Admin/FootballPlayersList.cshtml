@@ -62,8 +62,8 @@
                         <td>@item.Nation</td>
                         <td>@item.footballTeam.Name</td>
                         <td class="actions">
-                            <a href="#edit-1" class="btn btn-edit">Edit</a>
-                            <a href="#delete-1" class="btn btn-delete">Delete</a>
+                            <a href="/Admin/EditPlayer/@item.FootbalPlayerId" class="btn btn-edit">Edit</a>
+                            <a href="/Admin/DeletePlayer/@item.FootbalPlayerId" class="btn btn-delete">Delete</a>
                         </td>
                     </tr>
                     <tr class="detail-row">
@@ -82,7 +82,7 @@
                                                     <div class="detail-item">
                                                         <span class="detail-label" style="color: #3498db;">Nation</span>
                                                         <div class="caster-image-cell">
-                                                            <img src="@item.NationFlagImageUrl" alt="Martin Tyler" class="caster-image" style="">
+                                                            <img src="@item.NationFlagImageUrl" alt="@item.Name" class="caster-image">
                                                             <span class="detail-value highlight">@item.Nation</span>
                                                         </div>
                                                         
@@ -90,7 +90,7 @@
                                                     <div class="detail-item">
                                                         <span class="detail-label" style="color: #3498db;">Team</span>
                                                         <div class="caster-image-cell">
-                                                            <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg" alt="Martin Tyler" class="caster-image" style="">
+                                                            <img src="@item.footballTeam.ImageUrl" alt="@item.footballTeam.Name" class="caster-image" style="">
                                                             <span class="detail-value highlight">@item.footballTeam.Name</span>
                                                         </div>
 
@@ -98,10 +98,10 @@
                                                     
                                                 </div>
                                             </div>
-                                            @await Component.InvokeAsync("AdminPlayerCasterList")
+                                            @await Component.InvokeAsync("AdminPlayerCasterList" , new { PlayerId = @item.FootbalPlayerId})
                                             <div class="detail-actions">
-                                                <a href="#edit-1" class="btn btn-edit">Edit Player</a>
-                                                <a href="#delete-1" class="btn btn-delete" style="background-color: #27ae60">Add Sound</a>
+                                                <a href="/Admin/EditPlayer/@item.FootbalPlayerId" class="btn btn-edit">Edit Player</a>
+                                                <a href="/Admin/AddSoundByPlayer/@item.FootbalPlayerId" class="btn btn-delete" style="background-color: #27ae60">Add Sound</a>
                                             </div>
                                         </div>
                                         

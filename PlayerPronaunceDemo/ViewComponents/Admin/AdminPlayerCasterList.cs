@@ -12,9 +12,9 @@ namespace PlayerPronaunceDemo.ViewComponents.Admin
             _context = context;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(int playerId)
         {
-            var values = _context.Sounds.ToList();
+            var values = _context.Sounds.Where(x => x.FootballPlayerId == playerId).ToList();
             return View(values);
         }
     }
