@@ -8,6 +8,10 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<PPContext>();
 
+builder.Services.AddDbContext<PPContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 var app = builder.Build();
 
