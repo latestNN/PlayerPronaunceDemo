@@ -8,7 +8,7 @@
 @using (Html.BeginForm("AddSoundByPlayer", "Admin", FormMethod.Post, new { id = "addPlayerForm" }))
 {
     <H2>@ViewBag.playerName Oyuncusu İçin</H2>
-    @Html.HiddenFor(x => x.FootballPlayerId);
+    <input type="hidden" id="FootballPlayerId" name="FootballPlayerId" value="@ViewBag.playerId" />
     <span>ID: @ViewBag.playerId</span>
     <div class="form-group">
         <label class="form-label">
@@ -32,34 +32,37 @@
             Sound Path<span class="required">*</span>
         </label>
         @Html.TextBoxFor(x => x.SoundPath, new { @class = "form-input", id = "imageUrl" })
-        <span class="form-hint">Provide a direct link to the caster's photo</span>
+        <span class="form-hint">Provide a direct link to the sound's path</span>
     </div>
     <div class="form-group">
         <label class="form-label">
-            Caster Image URL<span class="required">*</span>
+            Epic Sound<span class="required">*</span>
         </label>
         @Html.CheckBoxFor(x => x.IsEpic, new  { @class = "form-input"})
-        <span class="form-hint">Provide a direct link to the caster's photo</span>
+        <span class="form-hint">Mark it if sound is epic</span>
     </div>
 
     <!-- Country & Team Row -->
     <div class="form-row">
+
+
         <div class="form-group">
             <label class="form-label">
-                Caster Country<span class="required">*</span>
+                Caster Nation<span class="required">*</span>
             </label>
-
-
+            <div id="selectModeContainer" style="display: flex; gap: 5px;"> 
+                <select asp-for="SoundNation" asp-items="@ViewBag.counteries" class=" form-select" id="countryDropdown">
+                    <option value="">-- Ülke Seçin --</option>
+                </select>
+                <button type="button" id="btnSwitchToText" style="padding: 0 15px; cursor: pointer;">+</button>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label class="form-label">
-                Player Team<span class="required">*</span>
-            </label>
-            <select asp-for="SoundNation" asp-items="@ViewBag.counteries" class=" form-select">
-                <option value="">-- Takim Secin --</option>
-            </select>
+        <div id="textModeContainer" style="display: none; gap: 5px;">
 
+            <input asp-for="SoundNation" type="text" class="form-input" id="countryTextBox" placeholder="Yeni ülke adı giriniz..." disabled />
+
+            <button type="button" id="btnSwitchToSelect" style="padding: 0 15px; cursor: pointer; background-color: #ff4444; color: white; border: none;">✖</button>
         </div>
     </div>
 
@@ -88,8 +91,53 @@
 
     <!-- Form Actions -->
     <div class="form-actions">
-        <button type="submit" class="btn btn-save">💾 Save Player</button>
+        <button type="submit" class="btn btn-save">💾 Save Sound</button>
         <a href="#players" class="btn btn-cancel">Cancel</a>
     </div>
 
 }
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const btnToText = document.getElementById("btnSwitchToText");
+        const btnToSelect = document.getElementById("btnSwitchToSelect");
+
+        const selectContainer = document.getElementById("selectModeContainer");
+        const textContainer = document.getElementById("textModeContainer");
+
+        const dropdown = document.getElementById("countryDropdown");
+        const textBox = document.getElementById("countryTextBox");
+
+        // "+" Butonuna basılınca
+        btnToText.addEventListener("click", function () {
+            // Görünümü değiştir
+            selectContainer.style.display = "none";
+            textContainer.style.display = "flex";
+
+            // Dropdown'ı devre dışı bırak (Veri göndermesin)
+            dropdown.disabled = true;
+            dropdown.removeAttribute("name"); // MVC binding hatasını önlemek için name'i siliyoruz
+
+            // Textbox'ı aktif et ve 'Nation' ismini ver
+            textBox.disabled = false;
+            textBox.setAttribute("name", "Nation"); // Modeldeki 'Nation' alanına bu veri gidecek
+            textBox.focus();
+        });
+
+        // "X" Butonuna basılınca (Geri dön)
+        btnToSelect.addEventListener("click", function () {
+            // Görünümü eski haline getir
+            textContainer.style.display = "none";
+            selectContainer.style.display = "flex";
+
+            // Textbox'ı devre dışı bırak
+            textBox.disabled = true;
+            textBox.removeAttribute("name");
+            textBox.value = ""; // Yazılanı temizle
+
+            // Dropdown'ı tekrar aktif et
+            dropdown.disabled = false;
+            dropdown.setAttribute("name", "Nation"); // Tekrar Nation ismini aldı
+        });
+    });
+</script>

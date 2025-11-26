@@ -1,0 +1,151 @@
+﻿@model PlayerPronaunceDemo.Entities.Sound
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="form-container">
+    @using (Html.BeginForm("EditSound", "Admin", FormMethod.Post, new { id = "addPlayerForm" }))
+    {
+        <H2>@ViewBag.playerName Oyuncusu İçin</H2>
+        @Html.HiddenFor(m => m.SoundId)
+        //<input type="hidden" id="FootballPlayerId" name="FootballPlayerId" value="@ViewBag.playerId"/>
+        <span>Player ID: @ViewBag.playerId</span>
+        <span>Sound ID: @ViewBag.soundId</span>
+        <div class="form-group">
+            <label class="form-label">
+                Caster Name<span class="required">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.CasterName, new { @class = "form-input", id = "playerName" })
+        </div>
+        <div class="form-group">
+            <label class="form-label">
+                Football Player Id <span class="required">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.FootballPlayerId, new { @class = "form-input", id = "playerName" })
+        </div>
+        <!-- Player Name -->
+    
+
+        <!-- Image URL -->
+        <div class="form-group">
+            <label class="form-label">
+                Caster Image URL<span class="required">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.CasterImageUrl, new { @class = "form-input", id = "imageUrl" })
+            <span class="form-hint">Provide a direct link to the caster's photo</span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">
+                Sound Path<span class="required">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.SoundPath, new { @class = "form-input", id = "imageUrl" })
+            <span class="form-hint">Provide a direct link to the sound's path</span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">
+                Epic Sound<span class="required">*</span>
+            </label>
+            @Html.CheckBoxFor(x => x.IsEpic, new  { @class = "form-input"})
+            <span class="form-hint">Mark it if sound is epic</span>
+        </div>
+
+        <!-- Country & Team Row -->
+        <div class="form-row">
+
+
+            <div class="form-group">
+                <label class="form-label">
+                    Caster Nation<span class="required">*</span>
+                </label>
+                <div id="selectModeContainer" style="display: flex; gap: 5px;"> 
+                    <select asp-for="SoundNation" asp-items="@ViewBag.soundNation" class=" form-select" id="countryDropdown">
+                        <option value="">-- Ülke Seçin --</option>
+                    </select>
+                    <button type="button" id="btnSwitchToText" style="padding: 0 15px; cursor: pointer;">+</button>
+                </div>
+            </div>
+
+            <div id="textModeContainer" style="display: none; gap: 5px;">
+
+                <input asp-for="SoundNation" type="text" class="form-input" id="countryTextBox" placeholder="Yeni ülke adı giriniz..." disabled />
+
+                <button type="button" id="btnSwitchToSelect" style="padding: 0 15px; cursor: pointer; background-color: #ff4444; color: white; border: none;">✖</button>
+            </div>
+        </div>
+
+
+
+        <!-- Nation Flag URL -->
+        <div class="form-group">
+            <label class="form-label">
+                Nation Flag URL<span class="required">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.CasterNationImageUrl, new { @class = "form-input", id = "imageUrl" })
+            <span class="form-hint">Provide a direct link to the nation's flag image</span>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section" id="previewSection" style="display: none;">
+            <div class="preview-title">Preview</div>
+            <div class="preview-content">
+                <img src="https://i.pravatar.cc/150?img=1" alt="Preview" class="preview-image" id="previewImage">
+                <div class="preview-info">
+                    <div class="preview-name" id="previewName">Player Name</div>
+                    <div class="preview-details" id="previewDetails">Country • Team</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">💾 Save Sound</button>
+            <a href="#players" class="btn btn-cancel">Cancel</a>
+        </div>
+
+    }
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const btnToText = document.getElementById("btnSwitchToText");
+        const btnToSelect = document.getElementById("btnSwitchToSelect");
+
+        const selectContainer = document.getElementById("selectModeContainer");
+        const textContainer = document.getElementById("textModeContainer");
+
+        const dropdown = document.getElementById("countryDropdown");
+        const textBox = document.getElementById("countryTextBox");
+
+        // "+" Butonuna basılınca
+        btnToText.addEventListener("click", function () {
+            // Görünümü değiştir
+            selectContainer.style.display = "none";
+            textContainer.style.display = "flex";
+
+            // Dropdown'ı devre dışı bırak (Veri göndermesin)
+            dropdown.disabled = true;
+            dropdown.removeAttribute("name"); // MVC binding hatasını önlemek için name'i siliyoruz
+
+            // Textbox'ı aktif et ve 'Nation' ismini ver
+            textBox.disabled = false;
+            textBox.setAttribute("name", "Nation"); // Modeldeki 'Nation' alanına bu veri gidecek
+            textBox.focus();
+        });
+
+        // "X" Butonuna basılınca (Geri dön)
+        btnToSelect.addEventListener("click", function () {
+            // Görünümü eski haline getir
+            textContainer.style.display = "none";
+            selectContainer.style.display = "flex";
+
+            // Textbox'ı devre dışı bırak
+            textBox.disabled = true;
+            textBox.removeAttribute("name");
+            textBox.value = ""; // Yazılanı temizle
+
+            // Dropdown'ı tekrar aktif et
+            dropdown.disabled = false;
+            dropdown.setAttribute("name", "Nation"); // Tekrar Nation ismini aldı
+        });
+    });
+</script>

@@ -104,6 +104,33 @@ namespace PlayerPronaunceDemo.Controllers
             _context.SaveChanges();
             return RedirectToAction("FootballPlayersList");
         }
+
+        [HttpGet]
+        public IActionResult EditSound(int id)
+        {
+            ViewBag.soundId = id;
+            ViewBag.playerName = _context.Sounds.Where(x => x.FootballPlayerId == id).Select(y => y.footballPlayer.Name).FirstOrDefault();
+            int playerId = _context.Sounds.Where(x => x.SoundId == id).Select(y => y.FootballPlayerId).FirstOrDefault();
+            var sound = _context.Sounds.Find(id);
+            ViewBag.playerId = playerId;
+            return View(sound);
+        }
+
+        [HttpPost]
+        public IActionResult EditSound(Sound sound)
+        {
+            _context.Sounds.Update(sound);
+            _context.SaveChanges();
+            return RedirectToAction("FootballPlayersList");
+        }
+
+        public IActionResult DeleteSound(int id)
+        {
+            var sound = _context.Sounds.Find(id);
+            _context.Sounds.Remove(sound);
+            _context.SaveChanges();
+            return RedirectToAction("FootballPlayersList");
+        }
         public IActionResult SportsCategoriesList()
         {
             return View();

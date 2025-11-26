@@ -389,7 +389,7 @@ body {
            MAIN CONTENT AREA
         ======================================== */
 .main-content {
-    margin-left: 280px;
+    margin-left: 200px; /* Boşluk azaltıldı */
     flex: 1;
     padding: 30px;
 }
