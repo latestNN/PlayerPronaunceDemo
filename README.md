@@ -40,6 +40,7 @@ A comprehensive control panel for content management with hierarchical data hand
 
 ## 📸 Screenshots
 
+<img width="1890" height="1199" alt="image" src="https://github.com/user-attachments/assets/03113bf4-843c-4b8e-93d3-0e7d0b71b841" />
 
 
 ---
