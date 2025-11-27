@@ -40,6 +40,7 @@ A comprehensive control panel for content management with hierarchical data hand
 
 ## 📸 Screenshots
 
+## User Panel
 <img width="1888" height="1199" alt="image" src="https://github.com/user-attachments/assets/f9ac9256-8dea-4cdf-935f-f91e4207d5f3" />
 
 <img width="1891" height="1196" alt="image" src="https://github.com/user-attachments/assets/93a7abed-7c31-4d67-8498-94fab410c9c5" />
@@ -47,6 +48,16 @@ A comprehensive control panel for content management with hierarchical data hand
 <img width="1914" height="1199" alt="image" src="https://github.com/user-attachments/assets/ae976eac-cf3d-4da6-a2ef-5f2861cf23cd" />
 
 <img width="1915" height="1196" alt="image" src="https://github.com/user-attachments/assets/316b380e-a147-40ec-b79d-9f7fa4576da2" />
+
+
+## Admin Panel
+
+<img width="1889" height="1199" alt="image" src="https://github.com/user-attachments/assets/e28fd3e3-45f8-4bf3-98c5-6f72d0eb2742" />
+
+<img width="1895" height="1169" alt="image" src="https://github.com/user-attachments/assets/89c74229-0069-4552-8c4d-8353185d0008" />
+<img width="1884" height="1199" alt="image" src="https://github.com/user-attachments/assets/f113f692-f6d8-4f21-87e3-7ed867dc62d1" />
+
+<img width="1894" height="1167" alt="image" src="https://github.com/user-attachments/assets/9cfad416-329a-4d9b-b4c6-2d552d10eac3" />
 
 
 
