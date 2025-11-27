@@ -42,10 +42,9 @@ A comprehensive control panel for content management with hierarchical data hand
 
 <img width="1888" height="1199" alt="image" src="https://github.com/user-attachments/assets/f9ac9256-8dea-4cdf-935f-f91e4207d5f3" />
 
-<img width="1914" height="1199" alt="image" src="https://github.com/user-attachments/assets/ae976eac-cf3d-4da6-a2ef-5f2861cf23cd" />
-
 <img width="1891" height="1196" alt="image" src="https://github.com/user-attachments/assets/93a7abed-7c31-4d67-8498-94fab410c9c5" />
 
+<img width="1914" height="1199" alt="image" src="https://github.com/user-attachments/assets/ae976eac-cf3d-4da6-a2ef-5f2861cf23cd" />
 
 <img width="1915" height="1196" alt="image" src="https://github.com/user-attachments/assets/316b380e-a147-40ec-b79d-9f7fa4576da2" />
 
