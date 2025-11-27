@@ -32,15 +32,15 @@ A comprehensive control panel for content management with hierarchical data hand
 
 ## 🚀 Built With
 * **Framework:** ASP.NET (Core/MVC)
-* **Frontend:** HTML5, CSS3, JavaScript (JQuery/Vanilla for Pop-ups)
+* **Frontend:** HTML5, CSS3, JavaScript 
 * **Database:** MSSQL / Entity Framework
-* **Architecture:** N-Layer Architecture / MVC Pattern
+* **Architecture:** MVC Pattern
 
 ---
 
 ## 📸 Screenshots
 
-*(You can add screenshots of the Player Profile and Admin Dashboard here)*
+
 
 ---
 
@@ -79,9 +79,3 @@ Standart telaffuzların ötesinde, proje **"Epik Sesler" (Epic Sounds)** özelli
 * **Veritabanı:** MSSQL / Entity Framework
 
 ---
-
-## ⚙️ Kurulum (Installation)
-
-1. **Repoyu klonlayın:**
-   ```sh
-   git clone [https://github.com/username/player-pronounce.git](https://github.com/username/player-pronounce.git)
